@@ -58,6 +58,15 @@
         button:hover { 
             background: #7dd3fc; 
         }
+        .error-box {
+            background: #fecdd3; 
+            color: #9f1239; 
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-top: 25px; 
+            border-left: 5px solid #e11d48; 
+            font-weight: 500;
+        }
         .result-box { 
             background: #0f172a; 
             padding: 25px; 
@@ -95,11 +104,17 @@
         <button type="submit">Plan Trip</button>
     </form>
 
+    {% if error %}
+    <div class="error-box">
+        ⚠️ {{ error }}
+    </div>
+    {% endif %}
+
     {% if plan %}
     <div class="result-box">
         <h2 style="margin-top: 0; color: #f8fafc;">📍 Destination: {{ plan.city }}</h2>
         <div class="weather-info">
-            🌤️ <strong>Current Weather:</strong> {{ plan.temp }}°C, <span style="color: #38bdf8;">{{ plan.desc }}</span>
+            ☀️ <strong>Current Temperature:</strong> {{ plan.temp }}°C, <span style="color: #38bdf8;">{{ plan.desc }}</span>
         </div>
         <hr style="border: 0; border-top: 1px solid #334155; margin-bottom: 20px;">
         
