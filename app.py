@@ -6,8 +6,7 @@ app = Flask(__name__)
 app.secret_key = 'super_secret_weather_itinerary_key'
 
 # 🔑 PASTE YOUR OPENWEATHERMAP API KEY HERE IF YOU HAVE ONE:
-API_KEY = 'YOUR_ACTUAL_API_KEY_HERE'
-
+API_KEY = ""
 @app.route('/', methods=['GET', 'POST'])
 def index():
     plan = None

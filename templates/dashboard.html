@@ -26,6 +26,30 @@
             text-align: center; 
             margin-top: 0; 
             font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        .clock-widget {
+            text-align: center;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 15px auto 20px auto;
+            max-width: 400px;
+        }
+        .greeting-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #38bdf8;
+            margin: 0;
+        }
+        .time-text {
+            font-size: 1.4rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #f1f5f9;
+            margin: 5px 0 0 0;
+            letter-spacing: 1px;
         }
         .search-form {
             display: flex;
@@ -82,7 +106,6 @@
             background: #0f172a; 
             padding: 30px; 
             border-radius: 12px; 
-            border-top: 6px solid #38bdf8; 
             margin-top: 35px; 
         }
         .weather-badge {
@@ -141,11 +164,15 @@
         }
     </style>
 </head>
-<body style="background-color: {{ plan.bg_color if plan else '#0f172a' }};">
+<body style="background-color: #1e293b;">
 
 <div class="container">
     <h1>🚀 Elite Weather Itinerary Architect</h1>
-    <p style="text-align: center; color: #94a3b8; margin-bottom: 15px;">Smart Multi-Day Schedules & Packing Guides Driven by Real-Time Climates.</p>
+    
+    <div class="clock-widget">
+        <p id="dynamic-greeting" class="greeting-text">Initializing...</p>
+        <div id="live-clock" class="time-text">00:00:00 AM</div>
+    </div>
     
     <form method="POST" class="search-form">
         <input type="text" name="city" placeholder="Enter target city..." required>
@@ -164,7 +191,7 @@
     {% endif %}
 
     {% if plan %}
-    <div class="result-box" style="border-top-color: {{ plan.accent_color }};">
+    <div class="result-box">
         <h2 style="margin: 0; font-size: 1.8rem;">📍 {{ plan.city }}</h2>
         
         <div class="weather-badge">
@@ -198,6 +225,31 @@
     </div>
     {% endif %}
 </div>
+
+<script>
+    function updateClockAndGreeting() {
+        const now = new Date();
+        const hours = now.getHours();
+        let greeting = "👋 Hello!";
+        
+        if (hours >= 5 && hours < 12) {
+            greeting = "🌅 Good Morning, Traveler!";
+        } else if (hours >= 12 && hours < 18) {
+            greeting = "☀️ Good Afternoon, Traveler!";
+        } else {
+            greeting = "🌙 Good Evening, Traveler!";
+        }
+        
+        let readableTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        let readableDate = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        
+        document.getElementById('dynamic-greeting').innerText = greeting;
+        document.getElementById('live-clock').innerText = `${readableDate} — ${readableTime}`;
+    }
+
+    updateClockAndGreeting();
+    setInterval(updateClockAndGreeting, 1000);
+</script>
 
 </body>
 </html>
