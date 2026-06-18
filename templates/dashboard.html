@@ -3,59 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌍 Premium Weather Travel Planner</title>
+    <title>🌍 Advanced Weather Travel Matrix</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             color: #f8fafc; 
+            background-color: #0f172a;
             padding: 40px; 
             margin: 0; 
-            transition: background-color 0.5s ease;
         }
         .container { 
-            max-width: 750px; 
+            max-width: 780px; 
             margin: 0 auto; 
             background: #1e293b; 
-            padding: 30px; 
+            padding: 35px; 
             border-radius: 16px; 
             border: 1px solid #334155; 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
         h1 { 
             color: #38bdf8; 
             text-align: center; 
             margin-top: 0; 
-            font-size: 2rem;
+            font-size: 2.1rem;
             margin-bottom: 5px;
         }
-        .clock-widget {
+        .clock-card {
             text-align: center;
             background: #0f172a;
             border: 1px solid #334155;
             border-radius: 12px;
             padding: 12px;
-            margin: 15px auto 20px auto;
-            max-width: 400px;
+            margin: 15px auto 25px auto;
+            max-width: 420px;
         }
-        .greeting-text {
-            font-size: 1.1rem;
+        .greeting-msg {
+            font-size: 1rem;
             font-weight: 600;
             color: #38bdf8;
             margin: 0;
         }
-        .time-text {
-            font-size: 1.4rem;
+        .time-display {
+            font-size: 1.35rem;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             color: #f1f5f9;
             margin: 5px 0 0 0;
-            letter-spacing: 1px;
+        }
+        .bookmark-title {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .bookmark-grid {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .bookmark-btn {
+            background: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .bookmark-btn:hover {
+            background: #475569;
+            border-color: #38bdf8;
+            transform: translateY(-1px);
         }
         .search-form {
             display: flex;
             gap: 12px;
             justify-content: center;
-            margin-top: 25px;
+            margin-top: 10px;
             flex-wrap: wrap;
         }
         input { 
@@ -78,7 +105,7 @@
             flex: 1;
             cursor: pointer;
         }
-        button { 
+        button.submit-btn { 
             background: #38bdf8; 
             color: #0f172a; 
             font-weight: bold; 
@@ -89,26 +116,30 @@
             padding: 0 24px;
             transition: all 0.2s;
         }
-        button:hover { 
+        button.submit-btn:hover { 
             background: #7dd3fc; 
-            transform: translateY(-1px);
         }
-        .error-box {
+        .error-alert {
             background: #fecdd3; 
             color: #9f1239; 
             padding: 15px; 
             border-radius: 8px; 
             margin-top: 25px; 
-            border-left: 5px solid #e11d48; 
             font-weight: 500;
         }
-        .result-box { 
+        .result-container { 
             background: #0f172a; 
             padding: 30px; 
             border-radius: 12px; 
             margin-top: 35px; 
         }
-        .weather-badge {
+        .weather-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .weather-pill {
             display: inline-flex;
             align-items: center;
             background: #1e293b;
@@ -116,45 +147,68 @@
             border-radius: 20px;
             border: 1px solid #334155;
             font-size: 1.1rem;
-            margin-top: 10px;
         }
-        .packing-container {
+        .mood-playlist-banner {
+            background: #1e293b;
+            border-left: 4px solid #38bdf8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        .feature-box {
             background: #1e293b;
             border-radius: 8px;
             padding: 20px;
-            margin-top: 25px;
             border: 1px dashed #475569;
         }
-        .packing-grid {
+        .tag-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 12px;
         }
-        .packing-tag {
+        .item-tag {
             background: #0f172a;
             color: #38bdf8;
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 1px solid #334155;
         }
-        .day-card {
+        .cost-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #10b981;
+            margin: 8px 0 2px 0;
+        }
+        .day-block {
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 8px;
             padding: 18px;
             margin-top: 20px;
         }
-        .day-title {
+        .day-header {
             color: #38bdf8;
             margin-top: 0;
             margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             border-bottom: 1px solid #334155;
-            padding-bottom: 5px;
+            padding-bottom: 6px;
         }
-        .itinerary-item { 
+        .act-row { 
             background: #0f172a; 
             padding: 12px 16px; 
             border-radius: 6px; 
@@ -162,83 +216,103 @@
             font-size: 0.95rem;
             border-left: 3px solid #475569;
         }
-        .map-container {
+        .iframe-wrap {
             margin-top: 25px;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid #334155;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<body style="background-color: #1e293b;">
+<body>
 
 <div class="container">
-    <h1>🚀 Elite Weather Itinerary Architect</h1>
+    <h1>🚀 Weather Itinerary Destination Planner</h1>
     
-    <div class="clock-widget">
-        <p id="dynamic-greeting" class="greeting-text">Initializing...</p>
-        <div id="live-clock" class="time-text">00:00:00 AM</div>
+    <div class="clock-card">
+        <p id="greeting-hook" class="greeting-msg">Syncing clock loop...</p>
+        <div id="clock-hook" class="time-display">00:00:00 AM</div>
     </div>
     
-    <form method="POST" class="search-form">
-        <input type="text" name="city" placeholder="Enter target city..." required>
+    <div class="bookmark-title">⭐ Quick City Select Bookmarks:</div>
+    <div class="bookmark-grid">
+        <button type="button" class="bookmark-btn" onclick="triggerBookmark('Mumbai')">💼 Mumbai</button>
+        <button type="button" class="bookmark-btn" onclick="triggerBookmark('Pune')">⛰️ Pune</button>
+        <button type="button" class="bookmark-btn" onclick="triggerBookmark('London')">🏰 London</button>
+        <button type="button" class="bookmark-btn" onclick="triggerBookmark('Paris')">🗼 Paris</button>
+        <button type="button" class="bookmark-btn" onclick="triggerBookmark('New York')">🗽 New York</button>
+    </div>
+
+    <form id="planner-form" method="POST" class="search-form">
+        <input type="text" id="city-input" name="city" placeholder="Type target city name manually..." required>
         
-        <select name="days">
+        <select id="days-input" name="days">
             <option value="1">1-Day Stay Profile</option>
             <option value="3">3-Day Vacation Loop</option>
             <option value="5">5-Day Extended Tour</option>
         </select>
         
-        <button type="submit">Build Plan</button>
+        <button type="submit" class="submit-btn">Build Plan</button>
     </form>
 
     {% if error %}
-    <div class="error-box">⚠️ {{ error }}</div>
+    <div class="error-alert">⚠️ {{ error }}</div>
     {% endif %}
 
     {% if plan %}
-    <div class="result-box">
-        <h2 style="margin: 0; font-size: 1.8rem;">📍 {{ plan.city }}</h2>
-        
-        <div class="weather-badge">
-            <span style="font-size: 1.5rem; margin-right: 8px;">{{ plan.icon }}</span> 
-            <strong>{{ plan.temp }}°C</strong> &nbsp;|&nbsp; <span style="color: #cbd5e1;">{{ plan.desc }}</span>
+    <div class="result-container">
+        <div class="weather-row">
+            <h2 style="margin: 0; font-size: 1.7rem;">📍 {{ plan.city }}</h2>
+            <div class="weather-pill">
+                <span style="font-size: 1.4rem; margin-right: 8px;">{{ plan.icon }}</span> 
+                <strong>{{ plan.temp }}°C</strong> &nbsp;|&nbsp; <span style="color: #cbd5e1;">{{ plan.desc }}</span>
+            </div>
         </div>
 
-        <div class="packing-container">
-            <h3 style="margin-top: 0; color: #f8fafc; font-size: 1.1rem;">🎒 Smart Packing Checklist suggestions:</h3>
-            <div class="packing-grid">
-                {% for item in plan.packing_list %}
-                    <span class="packing-tag">{{ item }}</span>
-                {% endfor %}
+        <div class="mood-playlist-banner">
+            {{ plan.mood_quote }}
+        </div>
+
+        <div class="info-grid">
+            <div class="feature-box">
+                <h3 style="margin-top: 0; color: #f8fafc; font-size: 1rem; margin-bottom: 5px;">🎒 Smart Packing Checklist:</h3>
+                <div class="tag-row">
+                    {% for item in plan.packing_list %}
+                        <span class="item-tag">{{ item }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="feature-box" style="border-color: #10b981;">
+                <h3 style="margin-top: 0; color: #f8fafc; font-size: 1rem; margin-bottom: 2px;">💵 Estimated Stay Budget:</h3>
+                <div class="cost-number">${{ plan.estimated_budget }} USD</div>
+                <small style="color: #94a3b8;">Calculated base parameters (~$75/day forecast)</small>
             </div>
         </div>
 
         <hr style="border: 0; border-top: 1px solid #334155; margin: 30px 0 20px 0;">
-        
         <h3 style="color: #f8fafc; margin-top: 0; margin-bottom: 5px;">📅 Your Tailored Schedule Blueprints:</h3>
         
         {% for day_num in range(1, plan.total_days + 1) %}
-        <div class="day-card">
-            <h4 class="day-title">📆 Day {{ day_num }} Itinerary Plan</h4>
+        <div class="day-block">
+            <h4 class="day-header">📆 Day {{ day_num }} Itinerary Plan</h4>
             <div>
                 {% for activity in plan.activities_by_day %}
-                    <div class="itinerary-item">{{ activity }}</div>
+                    <div class="act-row">{{ activity }}</div>
                 {% endfor %}
             </div>
         </div>
         {% endfor %}
 
         <h3 style="color: #f8fafc; margin-top: 30px; margin-bottom: 5px;">🗺️ Destination Map Window:</h3>
-        <div class="map-container">
+        <div class="iframe-wrap">
             <iframe 
                 width="100%" 
-                height="320" 
+                height="300" 
                 style="border:0;" 
                 loading="lazy" 
                 allowfullscreen 
-                src="https://maps.google.com/maps?q={{ plan.city }}&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                src="https://maps.google.com/maps?q={{ plan.city }}&t=&z=12&ie=UTF8&iwloc=&output=embed">
             </iframe>
         </div>
     </div>
@@ -246,28 +320,36 @@
 </div>
 
 <script>
-    function updateClockAndGreeting() {
-        const now = new Date();
-        const hours = now.getHours();
-        let greeting = "👋 Hello!";
-        
-        if (hours >= 5 && hours < 12) {
-            greeting = "🌅 Good Morning, Traveler!";
-        } else if (hours >= 12 && hours < 18) {
-            greeting = "☀️ Good Afternoon, Traveler!";
-        } else {
-            greeting = "🌙 Good Evening, Traveler!";
-        }
-        
-        let readableTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        let readableDate = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
-        
-        document.getElementById('dynamic-greeting').innerText = greeting;
-        document.getElementById('live-clock').innerText = `${readableDate} — ${readableTime}`;
+    // JavaScript helper engine to intercept bookmark click actions instantly
+    function triggerBookmark(cityName) {
+        document.getElementById('city-input').value = cityName;
+        document.getElementById('planner-form').submit();
     }
 
-    updateClockAndGreeting();
-    setInterval(updateClockAndGreeting, 1000);
+    // Live clock initialization system 
+    function updateClockDisplay() {
+        const timestamp = new Date();
+        const currentHour = timestamp.getHours();
+        let directGreeting = "👋 Hello!";
+        
+        if (currentHour >= 5 && currentHour < 12) {
+            directGreeting = "🌅 Good Morning, Traveler!";
+        } else if (currentHour >= 12 && currentHour < 18) {
+            directGreeting = "☀️ Good Afternoon, Traveler!";
+        } else {
+            directGreeting = "🌙 Good Evening, Traveler!";
+        }
+        
+        let customTimeStr = timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        let customDateStr = timestamp.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        
+        document.getElementById('greeting-hook').innerText = directGreeting;
+        document.getElementById('clock-hook').innerText = `${customDateStr} — ${customTimeStr}`;
+    }
+
+    // Set time loops to tick cleanly every second
+    updateClockDisplay();
+    setInterval(updateClockDisplay, 1000);
 </script>
 
 </body>
