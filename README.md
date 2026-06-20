@@ -13,15 +13,15 @@ A smart travel companion web application built using **Python**, **Flask**, and 
      * ☀️ **Sunny Days:** Recommends outdoor historical walks, beaches, and sightseeing.
      * 🌧️ **Rainy Days:** Automatically switches recommendations to indoor museums, cafes, and art galleries.
 3. **Local Travel History Ledger**
-   * Built-in SQLite3 storage keeps a permanent log of your planned itineraries so you can review them later.
+   * Built-in SQLite3 storage keeps a permanent log of your planned itineraries so you can review them later
 
 ---
 
 ## ⚙️ Tech Stack & Concepts Covered
 
-* **Backend Engine:** Python 3.x with Flask (handles route management and API payload parsing).
+* **Backend Engine:** Python 3.x with Flask (handles route management and API payload parsing)
 * **Database Management:** SQLite3 (stores saved destination spots and custom user itineraries).
-* **Network Communication:** External API data fetching via the HTTP `requests` module.
+* **Network Communication:** External API data fetching via the HTTP `requests` module
 * **Frontend Design:** HTML5 / CSS3 structured dashboard.
 
 ---
