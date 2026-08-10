@@ -21,7 +21,9 @@ A smart travel companion web application built using **Python**, **Flask**, and 
 
 * **Backend Engine:** Python 3.x with Flask (handles route management and API payload parsing).
 * **Database Management:** SQLite3 (stores saved destination spots and custom user itineraries).
+  
 * **Network Communication:** External API data fetching via the HTTP `requests` module.
+
 * **Frontend Design:** HTML5 / CSS3 structured dashboard.
 
 ---
