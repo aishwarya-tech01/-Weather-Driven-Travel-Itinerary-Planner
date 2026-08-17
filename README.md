@@ -12,6 +12,7 @@ A smart travel companion web application built using **Python**, **Flask**, and 
    * Automatically calculates and adapts travel schedules on the fly:
      * ☀️ **Sunny Days:** Recommends outdoor historical walks, beaches, and sightseeing.
      * 🌧️ **Rainy Days:** Automatically switches recommendations to indoor museums, cafes, and art galleries.
+       
 3. **Local Travel History Ledger**
    * Built-in SQLite3 storage keeps a permanent log of your planned itineraries so you can review them later.
 
